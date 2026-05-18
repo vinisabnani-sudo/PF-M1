@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PORTFOLIO — Vineesha SABNANI</title>
+<title>PORTFOLIO - Vineesha SABNANI</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Unbounded:wght@200;400;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -151,16 +151,12 @@
     font-size: 11px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(-);
     margin-bottom: 32px;
     opacity: 0;
     animation: fadeUp 0.8s 0.3s forwards;
   }
-  .hero-tag::before {
-    content: '';
-    display: block; width: 32px; height: 1px;
-    background: var(--accent);
-  }
+  
 
   .hero-name {
     font-family: 'Unbounded', sans-serif;
@@ -345,7 +341,6 @@
   .card-media {
     position: relative;
     width: 100%;
-    aspect-ratio: inherit;
     overflow: hidden;
   }
   .project-card:nth-child(1) .card-media { height: 500px; }
@@ -355,13 +350,17 @@
   .project-card:nth-child(5) .card-media { height: 220px; }
   .project-card:nth-child(6) .card-media { height: 220px; }
 
-  .card-img {
+  /* ── IMAGE & VIDEO card media ── */
+  .card-img,
+  .card-video {
     width: 100%; height: 100%;
     object-fit: cover;
+    display: block;
     transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s;
     filter: saturate(0.7) brightness(0.85);
   }
-  .project-card:hover .card-img {
+  .project-card:hover .card-img,
+  .project-card:hover .card-video {
     transform: scale(1.05);
     filter: saturate(1) brightness(1);
   }
@@ -803,6 +802,15 @@
     display: flex; align-items: center; justify-content: center;
   }
 
+  /* Vidéo dans la modale */
+  .modal-video {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+    display: block;
+  }
+
   .modal-info {
     padding: 60px;
     background: var(--bg2);
@@ -875,14 +883,6 @@
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
   }
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(3deg); }
-  }
 
   .reveal {
     opacity: 0; transform: translateY(32px);
@@ -896,9 +896,7 @@
     .nav-links { display: none; }
     #hero { padding: 0 24px; }
     section { padding: 0 24px; }
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
+    .projects-grid { grid-template-columns: 1fr; }
     .project-card:nth-child(n) { grid-column: span 1; grid-row: span 1; }
     .about-grid { grid-template-columns: 1fr; gap: 48px; }
     .about-visual { height: 300px; }
@@ -926,7 +924,6 @@
   <ul class="nav-links">
     <li><a href="#work">Projets</a></li>
     <li><a href="#about">À propos</a></li>
-    <li><a href="#process">Démarche</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -934,14 +931,14 @@
 <!-- Hero -->
 <section id="hero">
   <div class="hero-content">
-    <div class="hero-tag">Étudiante en M1 Arts numériques &amp; Culture visuelles</div>
+    <div class="hero-tag">Étudiante en M1 Arts numériques &amp; Cultures visuelles</div>
     <h1 class="hero-name">
       <span class="line1">Vineesha</span>
       <span class="line2">Sabnani</span>
       <span class="line1"></span>
     </h1>
     <p class="hero-desc">
-      Création d'espaces numériques 3D, d'environnements virtuels et projet en réalité virtuelle avec une pratique à la croisée du design, du dessin et de la technologie.
+      Création d'espaces numériques 3D, d'environnements virtuels et projet en réalité virtuelle avec une pratique à la croisée du design numérique et du dessin.
     </p>
     <div class="hero-cta">
       <a href="#work" class="btn-primary">
@@ -966,7 +963,7 @@
     <span class="marquee-item"><span class="marquee-dot"></span>Modélisation 3D</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Environnements Virtuels</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Réalité Virtuelle</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Design Interactif</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Design Graphique</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Signalétique</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Dessin</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Expériences Immersives</span>
@@ -974,7 +971,7 @@
     <span class="marquee-item"><span class="marquee-dot"></span>Modélisation 3D</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Environnements Virtuels</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Réalité Virtuelle</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Design Interactif</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Design Graphique</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Signalétique</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Dessin</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Expériences Immersives</span>
@@ -987,61 +984,71 @@
   <div class="section-header reveal">
     <div>
       <div class="section-label">Travaux</div>
-      <h2 class="section-title">Projets<br></h2>
+      <h2 class="section-title">Projets</h2>
     </div>
   </div>
 
   <div class="projects-grid">
 
-    <!-- Project 1 -->
-    <div class="project-card reveal" onclick="openModal(0)">
-      <div class="card-media">
-        <div class="card-placeholder ph1">
-          <div class="placeholder-bg"></div>
-          <div class="placeholder-grid-lines"></div>
-          <svg class="placeholder-shape" width="120" height="120" viewBox="0 0 120 120">
-            <polygon points="60,10 110,40 110,80 60,110 10,80 10,40" fill="none" stroke="rgba(125,249,200,0.4)" stroke-width="1"/>
-            <polygon points="60,25 95,45 95,75 60,95 25,75 25,45" fill="none" stroke="rgba(125,249,200,0.25)" stroke-width="1"/>
-            <polygon points="60,40 80,52 80,68 60,80 40,68 40,52" fill="none" stroke="rgba(125,249,200,0.15)" stroke-width="1"/>
-            <line x1="60" y1="10" x2="60" y2="110" stroke="rgba(125,249,200,0.08)" stroke-width="0.5"/>
-            <line x1="10" y1="60" x2="110" y2="60" stroke="rgba(125,249,200,0.08)" stroke-width="0.5"/>
-          </svg>
-          <span class="placeholder-label">→ Insérer image</span>
-        </div>
-        <div class="card-overlay">
-          <div class="card-num">01</div>
-          <div class="card-title">Titre du Projet 01</div>
-          <div class="card-tags">
-            <span class="tag">3D</span>
-            <span class="tag">Environnement Virtuel</span>
-          </div>
-        </div>
-      </div>
-      <div class="card-info">
-        <span class="card-info-title">Projet 01</span>
-        <div class="card-arrow">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+    <!-- ======================================
+     PROJET 1 — IMAGE
+     ✏️ Placez "ghiblipic.png" dans le même
+        dossier que votre fichier HTML
+======================================= -->
+<div class="project-card reveal" onclick="openModal(0)">
+  <div class="card-media">
+
+    <video
+      class="card-video"
+      src="videos/ghibli-2-2.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
+
+    <div class="card-overlay">
+      <div class="card-num">01</div>
+      <div class="card-title">The Changing Valley</div>
+      <div class="card-tags">
+        <span class="tag">3D</span>
+        <span class="tag">Environnement Virtuel</span>
       </div>
     </div>
 
-    <!-- Project 2 -->
+  </div>
+
+  <div class="card-info">
+    <span class="card-info-title">Projet 01</span>
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M3 7h8M8 4l3 3-3 3"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+    <!-- ======================================
+         PROJET 2 — VIDÉO
+         ✏️ Remplacez "votre-video-2.mp4"
+    ======================================= -->
     <div class="project-card reveal" onclick="openModal(1)">
       <div class="card-media">
-        <div class="card-placeholder ph2">
-          <div class="placeholder-bg"></div>
-          <div class="placeholder-grid-lines"></div>
-          <svg class="placeholder-shape" width="80" height="80" viewBox="0 0 80 80">
-            <rect x="10" y="10" width="60" height="60" fill="none" stroke="rgba(200,125,255,0.4)" stroke-width="1" transform="rotate(15 40 40)"/>
-            <rect x="20" y="20" width="40" height="40" fill="none" stroke="rgba(200,125,255,0.25)" stroke-width="1" transform="rotate(30 40 40)"/>
-            <circle cx="40" cy="40" r="8" fill="none" stroke="rgba(200,125,255,0.3)" stroke-width="1"/>
-          </svg>
-          <span class="placeholder-label">→ Insérer image</span>
-        </div>
-        <div class="upload-hint">Votre image ici</div>
+        <video
+          class="card-video"
+          src="videos/VR.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+        ></video>
         <div class="card-overlay">
           <div class="card-num">02</div>
-          <div class="card-title">Titre du Projet 02</div>
+          <div class="card-title">Note Path</div>
           <div class="card-tags">
             <span class="tag">VR</span>
             <span class="tag">Interactif</span>
@@ -1056,133 +1063,212 @@
       </div>
     </div>
 
-    <!-- Project 3 -->
+    <!-- ======================================
+         PROJET 3 — IMAGE (placeholder)
+         ✏️ Remplacez la div card-placeholder
+            par une balise <img class="card-img" src="votre-image.jpg" ...>
+    ======================================= -->
     <div class="project-card reveal" onclick="openModal(2)">
-      <div class="card-media">
-        <div class="card-placeholder ph3">
-          <div class="placeholder-bg"></div>
-          <div class="placeholder-grid-lines"></div>
-          <svg class="placeholder-shape" width="80" height="80" viewBox="0 0 80 80">
-            <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(255,125,158,0.4)" stroke-width="1" stroke-dasharray="4 4"/>
-            <circle cx="40" cy="40" r="20" fill="none" stroke="rgba(255,125,158,0.25)" stroke-width="1" stroke-dasharray="3 6"/>
-            <circle cx="40" cy="40" r="8" fill="rgba(255,125,158,0.1)" stroke="rgba(255,125,158,0.3)" stroke-width="1"/>
-          </svg>
-          <span class="placeholder-label">→ Insérer image</span>
-        </div>
-        <div class="upload-hint">Votre image ici</div>
-        <div class="card-overlay">
-          <div class="card-num">03</div>
-          <div class="card-title">Titre du Projet 03</div>
-          <div class="card-tags">
-            <span class="tag">Médias</span>
-            <span class="tag">Installation</span>
-          </div>
-        </div>
-      </div>
-      <div class="card-info">
-        <span class="card-info-title">Projet 03</span>
-        <div class="card-arrow">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+  <div class="card-media">
+
+    <video
+      class="card-video"
+      src="videos/nav.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
+
+    <div class="card-overlay">
+      <div class="card-num">03</div>
+      <div class="card-title">Modélisation 3D</div>
+      <div class="card-tags">
+        <span class="tag">3D</span>
       </div>
     </div>
 
-    <!-- Project 4 -->
-    <div class="project-card reveal" onclick="openModal(3)">
-      <div class="card-media">
-        <div class="card-placeholder ph4">
-          <div class="placeholder-bg"></div>
-          <div class="placeholder-grid-lines"></div>
-          <svg class="placeholder-shape" width="100" height="100" viewBox="0 0 100 100">
-            <path d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z" fill="none" stroke="rgba(125,249,200,0.35)" stroke-width="1"/>
-            <path d="M50 20 L75 35 L75 65 L50 80 L25 65 L25 35 Z" fill="none" stroke="rgba(125,249,200,0.2)" stroke-width="1"/>
-            <path d="M50 35 L62 42 L62 58 L50 65 L38 58 L38 42 Z" fill="rgba(125,249,200,0.04)" stroke="rgba(125,249,200,0.15)" stroke-width="1"/>
-            <line x1="50" y1="5" x2="50" y2="35" stroke="rgba(125,249,200,0.15)" stroke-width="0.5"/>
-            <line x1="50" y1="65" x2="50" y2="95" stroke="rgba(125,249,200,0.15)" stroke-width="0.5"/>
-          </svg>
-          <span class="placeholder-label">→ Insérer image</span>
-        </div>
-        <div class="upload-hint">Votre image ici</div>
-        <div class="card-overlay">
-          <div class="card-num">04</div>
-          <div class="card-title">Titre du Projet 04</div>
-          <div class="card-tags">
-            <span class="tag">3D</span>
-            <span class="tag">Espace Virtuel</span>
-          </div>
-        </div>
-      </div>
-      <div class="card-info">
-        <span class="card-info-title">Projet 04</span>
-        <div class="card-arrow">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+  </div>
+
+  <div class="card-info">
+    <span class="card-info-title">Projet 03</span>
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M3 7h8M8 4l3 3-3 3"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</div>
+    </div>
+
+    <!-- ======================================
+         PROJET 4 — IMAGE (placeholder)
+    ======================================= -->
+   <div class="project-card reveal" onclick="openModal(3)">
+  <div class="card-media">
+
+    <img
+      class="card-img"
+      src="images/crgy.jpg"
+      alt="Scénographie - Mairie de Cergy"
+    />
+
+    <div class="card-overlay">
+      <div class="card-num">04</div>
+      <div class="card-title">Scénographie - Mairie de Cergy</div>
+      <div class="card-tags">
+        <span class="tag">Design Graphique</span>
+        <span class="tag">Signalétique</span>
       </div>
     </div>
 
-    <!-- Project 5 -->
-    <div class="project-card reveal" onclick="openModal(4)">
-      <div class="card-media">
-        <div class="card-placeholder ph5">
-          <div class="placeholder-bg"></div>
-          <div class="placeholder-grid-lines"></div>
-          <svg class="placeholder-shape" width="80" height="80" viewBox="0 0 80 80">
-            <polygon points="40,5 75,60 5,60" fill="none" stroke="rgba(125,249,200,0.3)" stroke-width="1"/>
-            <polygon points="40,15 65,55 15,55" fill="none" stroke="rgba(125,249,200,0.2)" stroke-width="1"/>
-            <polygon points="40,28 55,52 25,52" fill="rgba(125,249,200,0.03)" stroke="rgba(125,249,200,0.15)" stroke-width="1"/>
-          </svg>
-          <span class="placeholder-label">→ Insérer image</span>
-        </div>
-        <div class="upload-hint">Votre image ici</div>
-        <div class="card-overlay">
-          <div class="card-num">05</div>
-          <div class="card-title">Titre du Projet 05</div>
-          <div class="card-tags">
-            <span class="tag">AR</span>
-            <span class="tag">Design</span>
-          </div>
-        </div>
-      </div>
-      <div class="card-info">
-        <span class="card-info-title">Projet 05</span>
-        <div class="card-arrow">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
+  </div>
+
+  <div class="card-info">
+    <span class="card-info-title">Projet 04</span>
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M3 7h8M8 4l3 3-3 3"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+    <!-- ======================================
+     PROJET 5 — IMAGE
+======================================= -->
+<div class="project-card reveal" onclick="openModal(4)">
+
+  <div class="card-media">
+
+    <div class="card-placeholder ph5">
+
+      <!-- Background -->
+      <div class="placeholder-bg"></div>
+      <div class="placeholder-grid-lines"></div>
+
+      <!-- VIDEO -->
+      <video
+        class="card-video"
+        src="videos/AB.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+
+      <!-- Texte -->
+      <span class="placeholder-label">→ Voir le projet</span>
+
     </div>
 
-    <!-- Project 6 -->
-    <div class="project-card reveal" onclick="openModal(5)">
-      <div class="card-media">
-        <div class="card-placeholder ph6">
-          <div class="placeholder-bg"></div>
-          <div class="placeholder-grid-lines"></div>
-          <svg class="placeholder-shape" width="80" height="80" viewBox="0 0 80 80">
-            <line x1="40" y1="5" x2="40" y2="75" stroke="rgba(255,220,125,0.3)" stroke-width="1"/>
-            <line x1="5" y1="40" x2="75" y2="40" stroke="rgba(255,220,125,0.3)" stroke-width="1"/>
-            <circle cx="40" cy="40" r="25" fill="none" stroke="rgba(255,220,125,0.25)" stroke-width="1"/>
-            <circle cx="40" cy="40" r="12" fill="none" stroke="rgba(255,220,125,0.2)" stroke-width="1"/>
-            <circle cx="40" cy="40" r="4" fill="rgba(255,220,125,0.2)"/>
-          </svg>
-          <span class="placeholder-label">→ Insérer image</span>
-        </div>
-        <div class="upload-hint">Votre image ici</div>
-        <div class="card-overlay">
-          <div class="card-num">06</div>
-          <div class="card-title">Titre du Projet 06</div>
-          <div class="card-tags">
-            <span class="tag">Multimédia</span>
-            <span class="tag">Numérique</span>
-          </div>
-        </div>
+    <!-- Overlay -->
+    <div class="card-overlay">
+
+      <div class="card-num">05</div>
+
+      <div class="card-title">
+        Éclats invisibles
       </div>
-      <div class="card-info">
-        <span class="card-info-title">Projet 06</span>
-        <div class="card-arrow">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+
+      <div class="card-tags">
+        <span class="tag">Art génératif</span>
       </div>
+
     </div>
+
+  </div>
+
+  <!-- Bas de carte -->
+  <div class="card-info">
+
+    <span class="card-info-title">
+      Projet 05
+    </span>
+
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path 
+          d="M3 7h8M8 4l3 3-3 3" 
+          stroke="currentColor" 
+          stroke-width="1.2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+  </div>
+
+</div>
+
+    <!-- =============================     
+     PROJET 6 — IMAGE
+======================================= -->
+
+<div class="project-card reveal" onclick="openModal(5)" style="height:420px;">
+
+  <div class="card-media" style="position:relative; width:100%; height:calc(100% - 70px); overflow:hidden;">
+
+    <img
+      src="images/p.jpg"
+      alt="Cartographie intérieure"
+      style="
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+      "
+    />
+
+    <div class="card-overlay">
+
+      <div class="card-num">06</div>
+
+      <div class="card-title">
+        Cartographie intérieure
+      </div>
+
+      <div class="card-tags">
+        <span class="tag">Dessin</span>
+        <span class="tag">Pastel</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card-info">
+
+    <span class="card-info-title">
+      Projet 06
+    </span>
+
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path 
+          d="M3 7h8M8 4l3 3-3 3"
+          stroke="currentColor"
+          stroke-width="1.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
 
   </div>
 </section>
@@ -1210,36 +1296,33 @@
 
     <div class="about-text reveal">
       <p class="about-bio">
-        Designer numérique en candidature pour le Master 2 <strong>Design, Arts, Médias</strong> à l'Université Paris 1 Panthéon-Sorbonne. Ma pratique explore les <strong>espaces hybrides</strong> entre le réel et le virtuel, à travers la 3D, les environnements immersifs et la réalité virtuelle.
-      </p>
-      <p class="about-bio">
-        Je m'intéresse aux questions de <strong>médiation</strong>, de présence et d'expérience dans les espaces numériques — comment un environnement construit par le code peut générer du <strong>sens, du corps, de l'affect</strong>.
-      </p>
+Actuellement en Master 1 Arts Numériques & Cultures Visuelles, je candidate au Master 2 Design, Arts, Médias – Mention Design pour approfondir ma pratique à l'intersection de l'art, de la technologie et des médias, en renforçant ma démarche critique et ma réflexion théorique.     </p>
+      
 
       <div class="about-skills" id="skills-container">
         <div class="skill-item">
-          <div class="skill-name">Modélisation 3D <span>90%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+          <div class="skill-name">Modélisation 3D <span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-name">Réalité Virtuelle <span>85%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+          <div class="skill-name">Réalité Virtuelle <span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-name">Design Interactif <span>80%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+          <div class="skill-name">Design Interactif <span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-name">Recherche <span>75%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+          <div class="skill-name">Scénographie <span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-name">Unity / Unreal <span>78%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+          <div class="skill-name">Design Graphique<span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-name">Installation <span>70%</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+          <div class="skill-name">Dessin<span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
         </div>
       </div>
 
@@ -1248,77 +1331,36 @@
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 3l5 4-5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Me contacter
         </a>
-        <a href="#" class="btn-ghost">Télécharger CV</a>
+      
       </div>
     </div>
   </div>
 </section>
 
-<!-- Process -->
-<section id="process">
-  <div class="section-header reveal">
-    <div>
-      <div class="section-label">Méthode</div>
-      <h2 class="section-title">Démarche</h2>
-    </div>
-  </div>
-
-  <div class="process-steps reveal">
-    <div class="process-step">
-      <div class="step-num">01</div>
-      <span class="step-icon">◎</span>
-      <div class="step-title">Observation</div>
-      <p class="step-desc">Enquête sur les pratiques existantes. Analyse des espaces numériques et des usages du corps dans les environnements virtuels.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-num">02</div>
-      <span class="step-icon">◈</span>
-      <div class="step-title">Conception</div>
-      <p class="step-desc">Prototypage et exploration formelle. Construction d'espaces 3D, tests d'immersion, itérations entre intention et matière.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-num">03</div>
-      <span class="step-icon">◇</span>
-      <div class="step-title">Expérimentation</div>
-      <p class="step-desc">Mise en situation. Tests utilisateurs, dispositifs interactifs, confrontation entre le projet et le corps de l'expérimentateur.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-num">04</div>
-      <span class="step-icon">◉</span>
-      <div class="step-title">Médiation</div>
-      <p class="step-desc">Mise en forme critique. Comment présenter, exposer et transmettre une expérience numérique dans l'espace réel.</p>
-    </div>
-  </div>
-</section>
 
 <!-- Contact -->
 <section id="contact">
   <div class="contact-inner reveal">
     <div class="contact-big">
-      Travaillons<br><span class="accent">ensemble.</span>
+      Contact<br><span class="accent"></span>
     </div>
     <div class="contact-grid">
       <div class="contact-info">
-        <p>Vous souhaitez en savoir plus sur mes projets, discuter d'une collaboration ou simplement échanger autour du design numérique et des espaces virtuels.</p>
+        <p>Vous souhaitez en savoir plus sur mes projets, discuter d'une collaboration ou simplement échanger autour du design numérique et de la création artistique.</p>
         <a href="mailto:votre@email.fr" class="contact-email">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1" stroke="currentColor"/><path d="M1 4l7 5 7-5" stroke="currentColor"/></svg>
-          votre@email.fr
+          sabnanivineesha@gmail.com
         </a>
       </div>
-      <div class="contact-socials">
-        <a href="#" class="social-link">Instagram ↗</a>
-        <a href="#" class="social-link">Behance ↗</a>
-        <a href="#" class="social-link">LinkedIn ↗</a>
-        <a href="#" class="social-link">Are.na ↗</a>
-      </div>
+   
     </div>
   </div>
 </section>
 
 <!-- Footer -->
 <footer>
-  <span class="footer-copy">© 2024 — Tous droits réservés</span>
-  <span class="footer-built">Portfolio — <span>Design, Arts & Médias</span> — Paris 1 Panthéon-Sorbonne</span>
+  <span class="footer-copy">Portfolio de Vineesha SABNANI</span>
+  <span class="footer-built">Portfolio 2026</span>
 </footer>
 
 <!-- Modal -->
@@ -1340,82 +1382,83 @@
       </div>
     </div>
   </div>
-</div>
+<div>
 
-<script>
+//<script>
 // ── PROJECT DATA ──
+// ✏️ Remplissez videoSrc pour les projets 1, 2 et 6 avec le chemin de votre vidéo
 const projects = [
   {
     num: '01',
-    title: 'Titre du Projet 01',
-    desc: 'Décrivez ici votre projet en quelques phrases. Parlez de la démarche, de l\'intention, des questions que vous posez. Remplacez ce texte par votre propre description.',
+    title: 'The Changing Valley',
+    desc: 'The Changing Valley s’inspire du film Mon voisin Totoro et plus largement de l’esthétique des paysages du studio Ghibli, caractérisés par une attention portée à la nature et au rythme contemplatif. Le projet prend la forme de paysages explorables, conçus comme une réinterprétation personnelle de ces références, nourrie par ma pratique du dessin de paysage et par des influences issues du jeu vidéo et de la photographie tel que Akine Coco. Entre dessin, modélisation 3D et interaction, ce projet met en avant une expérience contemplative et immersive, centrée sur l’exploration et la perception de l’espace.',
     tags: ['3D', 'Environnement Virtuel', 'Blender'],
-    year: '2024',
+    year: '2026',
     type: 'Environnement 3D',
     tools: 'Blender, Unity',
-    context: 'Projet personnel',
+    context: 'Projet de création  en lien avec le mémoire',
     bg: 'linear-gradient(135deg, #0d1a2b 0%, #0a2040 40%, #061830 100%)',
-    shape: '#7DF9C8'
+    videoSrc: 'videos/ghibz.mp4'   // ✏️ chemin de votre vidéo
   },
   {
     num: '02',
-    title: 'Titre du Projet 02',
-    desc: 'Décrivez ici votre projet. Quel espace virtuel avez-vous créé ? Quelle expérience propose-t-il ? Remplacez ce texte par votre description.',
+    title: 'Note Path',
+    desc: '“Note Path” est une expérience immersive inspirée de la mémoire, des souvenirs et de la pratique du piano. À travers trois environnements situés dans une galaxie, le joueur explore un univers onirique où le piano devient un objet symbolique représentant les milliers d’heures d’apprentissage et de répétition. Chaque pièce possède une ambiance visuelle et sonore différente, mêlant exploration, obstacles et interaction avec les éléments du piano. Le projet évoque ainsi l’immersion mentale ressentie lorsqu’on joue de la musique, entre effort, progression et évasion hors de la réalité.',
     tags: ['VR', 'Interactif', 'Expérience'],
-    year: '2024',
+    year: '2026',
     type: 'Réalité Virtuelle',
-    tools: 'Unity, HTC Vive',
+    tools: 'Unity, Blender',
     context: 'Projet académique',
     bg: 'linear-gradient(135deg, #1a0d2b 0%, #2a0d40 100%)',
-    shape: '#C87DFF'
+    videoSrc: 'videos/VR.mp4'   // ✏️ chemin de votre vidéo
   },
   {
     num: '03',
-    title: 'Titre du Projet 03',
-    desc: 'Décrivez ici votre projet. Installation, performance numérique, objet interactif ? Parlez du dispositif et de son contexte d\'exposition.',
-    tags: ['Médias', 'Installation', 'Numérique'],
-    year: '2023',
-    type: 'Installation',
-    tools: 'TouchDesigner, Projection',
-    context: 'Exposition',
+    title: 'Modélisation 3D - Projet en cours',
+    desc: 'Ce projet s’inscrit dans la création d’un court métrage d’animation inspiré de l’univers du film Avatar. L’histoire suit le personnage Na’vi explorant une forêt bioluminescente de Pandora après la disparition d’une mystérieuse source de lumière, dans un environnement où la nature réagit à sa présence. Le visuel présenté ici est un prototype du personnage, réalisé afin de développer son apparence et son intégration dans les futures scènes animées du projet.',
+    tags: ['3D', 'Avatar', 'Prototype'],
+    year: '2026',
+    type: 'Modélisation',
+    tools: 'Blender, Substance',
+    context: 'Expérimentation',
     bg: 'linear-gradient(135deg, #2b0d1a 0%, #400d2a 100%)',
-    shape: '#FF7D9E'
+    videoSrc: 'videos/Navi.mp4'   // ✏️ chemin de votre vidéo
   },
   {
-    num: '04',
-    title: 'Titre du Projet 04',
-    desc: 'Décrivez ici votre projet. Quel espace ou quelle expérience avez-vous conçu ? Quelle problématique du design ce projet adresse-t-il ?',
-    tags: ['3D', 'Espace Virtuel', 'Architecture'],
-    year: '2023',
-    type: 'Design Spatial',
-    tools: 'Cinema 4D, Octane',
-    context: 'Projet de recherche',
-    bg: 'linear-gradient(135deg, #0d2b1a 0%, #0d4028 100%)',
-    shape: '#7DF9C8'
+     num: '04',
+  title: 'Stage - Projet en cours',
+  desc: 'Dans le cadre de ce stage de 4 mois, je suis en charge de la signalétique des évènements réunissant l’ensemble des associations culturelles de Cergy. Je développe également un parcours de signalétique et adapte la scénographie en fonction des artistes en résidence. Cela inclut des collaborations, notamment avec la designer Julie Cheng, afin de créer des dispositifs en lien avec leurs univers.',
+  tags: ['Scénographie', 'Signalétique', 'Design Graphique'],
+  year: '2026',
+  type: 'Signalétique, Scénographie',
+  tools: 'Suite Adobe, Blender, Figma',
+  context: 'Projet de stage',
+  bg: 'linear-gradient(135deg, #0d2b1a 0%, #0d4028 100%)',
+  videoSrc: 'videos/cergyc.mp4'   // ✏️ chemin de votre vidéo
   },
   {
     num: '05',
-    title: 'Titre du Projet 05',
-    desc: 'Décrivez ici votre projet. Comment s\'articule-t-il entre art et design ? Quelle est sa dimension médiatique ? Remplacez ce texte.',
-    tags: ['AR', 'Design', 'Prototype'],
-    year: '2023',
-    type: 'Réalité Augmentée',
-    tools: 'ARKit, Spark AR',
-    context: 'Expérimentation',
+    title: 'Éclats invisibles',
+    desc: 'Ce projet explore ma fascination pour les aurores boréales, un phénomène que je n’ai jamais vu mais qui nourrit profondément mon imaginaire. À travers des recherches scientifiques, théoriques et des interviews réalisés avec deux personnes autochtones, j’ai découvert des visions plus spirituelles des aurores, perçues comme un lien avec les ancêtres. À partir de ces recherches, j’ai développé un dispositif génératif à partir d’aurores boréales. Les couleurs, les formes et l’accumulation des dessins évoquent les souvenirs, les récits et les différentes perceptions liées aux aurores. Ce projet cherche ainsi à rendre visible un phénomène à la fois lointain, invisible et inaccessible, en lui donnant la forme d’un paysage imaginaire.',
+    tags: ['Art génératif', 'Peuple Autochtone'],
+    year: '2024',
+    type: 'Art génératif',
+    tools: 'P5JS, HTML, CSS, JavaScript',
+    context: 'Projet académique',
     bg: 'linear-gradient(135deg, #1a2b0d 0%, #2a400d 100%)',
-    shape: '#C8FF7D'
+    videoSrc: 'videos/AB.mp4'   // ✏️ chemin de votre vidéo
   },
   {
     num: '06',
-    title: 'Titre du Projet 06',
-    desc: 'Décrivez ici votre dernier projet. En quoi dialogue-t-il avec les problématiques du master Design, Arts, Médias ? Quel est votre positionnement ?',
-    tags: ['Multimédia', 'Numérique', 'Recherche'],
-    year: '2024',
-    type: 'Projet Multimédia',
-    tools: 'After Effects, Code',
-    context: 'Mémoire / Recherche',
+      title: 'Cartographie intérieur',
+    desc: ' Ce projet explore les souvenirs de mon enfance marquée par des déplacements liés au travail de mon père dans l’armée. À travers de grands dessins au pastel sec, je réinterprète des paysages (Himalaya, Kazakhstan, Péru) sans support visuel, guidé par l’imaginaire de l’enfance. Ces compositions évoquent mémoire, absence et entre-deux dans une approche personelle et intime.',
+    tags: ['Dessin', 'Pastel'],
+    year: '2025',
+    type: 'Série de dessins',
+    tools: 'Pastel (format A2)',
+    context: 'Projet personnelle',
     bg: 'linear-gradient(135deg, #2b2b0d 0%, #40380d 100%)',
-    shape: '#FFD97D'
+  videoSrc: 'videos/passs.mp4'   //
   }
 ];
 
@@ -1478,7 +1521,6 @@ for (let i = 0; i < 120; i++) particles.push(new Particle());
 function animateBg() {
   bgCtx.clearRect(0, 0, W, H);
   particles.forEach(p => { p.update(); p.draw(); });
-  // connections
   for (let i = 0; i < particles.length; i++) {
     for (let j = i + 1; j < particles.length; j++) {
       const dx = particles[i].x - particles[j].x;
@@ -1516,7 +1558,6 @@ function drawAbout() {
   actx.clearRect(0, 0, aW, aH);
   t += 0.008;
 
-  // Rotating wireframe cube
   const cx = aW / 2, cy = aH / 2;
   const size = Math.min(aW, aH) * 0.28;
 
@@ -1547,7 +1588,6 @@ function drawAbout() {
   const rotVerts = verts.map(([x,y,z]) => rotate(x,y,z, t*0.7, t));
   const projVerts = rotVerts.map(([x,y,z]) => project(x,y,z));
 
-  // Grid floor
   actx.strokeStyle = 'rgba(125,249,200,0.04)';
   actx.lineWidth = 0.5;
   for (let i = 0; i <= 10; i++) {
@@ -1556,7 +1596,6 @@ function drawAbout() {
     actx.beginPath(); actx.moveTo(0, (i/10)*aH); actx.lineTo(aW, (i/10)*aH); actx.stroke();
   }
 
-  // Cube outer
   actx.strokeStyle = 'rgba(125,249,200,0.45)';
   actx.lineWidth = 1;
   edges.forEach(([a,b]) => {
@@ -1566,7 +1605,6 @@ function drawAbout() {
     actx.stroke();
   });
 
-  // Inner cube
   const rotVerts2 = verts.map(([x,y,z]) => rotate(x*0.5,y*0.5,z*0.5, t*0.7+0.5, t+0.5));
   const projVerts2 = rotVerts2.map(([x,y,z]) => project(x,y,z));
   actx.strokeStyle = 'rgba(200,125,255,0.25)';
@@ -1578,7 +1616,6 @@ function drawAbout() {
     actx.stroke();
   });
 
-  // Connecting lines between cubes
   actx.strokeStyle = 'rgba(255,125,158,0.08)';
   actx.lineWidth = 0.5;
   for (let i = 0; i < 8; i++) {
@@ -1588,7 +1625,6 @@ function drawAbout() {
     actx.stroke();
   }
 
-  // Scanning line
   const scanY = ((Math.sin(t * 1.5) + 1) / 2) * aH;
   const scanGrad = actx.createLinearGradient(0, scanY - 30, 0, scanY + 30);
   scanGrad.addColorStop(0, 'transparent');
@@ -1613,7 +1649,6 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 reveals.forEach(el => observer.observe(el));
 
-// Skill bars
 const skillObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1628,13 +1663,14 @@ const sc = document.getElementById('skills-container');
 if (sc) skillObserver.observe(sc);
 
 // ── MODAL ──
+// Récupère la vidéo en cours dans la carte pour l'afficher en modale
 function openModal(idx) {
   const p = projects[idx];
-  document.getElementById('modal-num').textContent = `Projet ${p.num}`;
+  document.getElementById('modal-num').textContent   = `Projet ${p.num}`;
   document.getElementById('modal-title').textContent = p.title;
-  document.getElementById('modal-desc').textContent = p.desc;
-  document.getElementById('modal-year').textContent = p.year;
-  document.getElementById('modal-type').textContent = p.type;
+  document.getElementById('modal-desc').textContent  = p.desc;
+  document.getElementById('modal-year').textContent  = p.year;
+  document.getElementById('modal-type').textContent  = p.type;
   document.getElementById('modal-tools').textContent = p.tools;
   document.getElementById('modal-context').textContent = p.context;
 
@@ -1642,17 +1678,36 @@ function openModal(idx) {
   tagsEl.innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
 
   const media = document.getElementById('modal-media');
-  // Keep close button, update background
-  media.style.background = p.bg;
+  // Réinitialise le contenu (on garde seulement le bouton fermer)
+  media.innerHTML = `<button class="modal-close" onclick="closeModal()">✕</button>`;
 
-  const overlay = document.getElementById('modal-overlay');
-  overlay.classList.add('open');
+  if (p.videoSrc) {
+    // Projet avec vidéo → on relit la vidéo dans la modale
+    const vid = document.createElement('video');
+    vid.className  = 'modal-video';
+    vid.src        = p.videoSrc;
+    vid.autoplay   = true;
+    vid.muted      = true;
+    vid.loop       = true;
+    vid.playsInline = true;
+    media.appendChild(vid);
+  } else {
+    // Projet sans vidéo → fond de couleur simple
+    media.style.background = p.bg;
+  }
+
+  document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('open');
   document.body.style.overflow = '';
+
+  // Stoppe la vidéo modale si elle existe
+  const vid = overlay.querySelector('video');
+  if (vid) { vid.pause(); vid.src = ''; }
 }
 
 function handleModalClick(e) {
