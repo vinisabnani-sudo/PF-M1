@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PORTFOLIO - Vineesha SABNANI</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Unbounded:wght@200;400;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060610;
+    --bg2: #0a0a1a;
+    --accent: #7DF9C8;
+    --accent2: #C87DFF;
+    --accent3: #FF7D9E;
+    --white: #F0EEF8;
+    --muted: #6B6880;
+    --grid: rgba(125,249,200,0.04);
+    --glow: rgba(125,249,200,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── CUSTOM CURSOR ── */
+  .cursor {
+    position: fixed; top: 0; left: 0;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: exclusion;
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    position: fixed; top: 0; left: 0;
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.5;
+    transition: transform 0.18s ease, width 0.2s, height 0.2s, opacity 0.2s;
+  }
+  body:has(a:hover) .cursor-ring,
+  body:has(button:hover) .cursor-ring,
+  body:has(.project-card:hover) .cursor-ring {
+    width: 64px; height: 64px; opacity: 0.8;
+    border-color: var(--accent2);
+  }
+
+  /* ── CANVAS BG ── */
+  #bg-canvas {
+    position: fixed; inset: 0;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.35;
+  }
+
+  /* ── GRID ── */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    background: linear-gradient(to bottom, rgba(6,6,16,0.9), transparent);
+    backdrop-filter: blur(0px);
+  }
+
+  .nav-logo {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative; z-index: 2;
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 0 48px;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    max-width: 900px;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(-);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+  
+
+  .hero-name {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: clamp(52px, 8vw, 110px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-name .line1 { display: block; color: var(--white); }
+  .hero-name .line2 {
+    display: block;
+    -webkit-text-stroke: 1px var(--accent);
+    color: transparent;
+  }
+  .hero-name .line3 { display: block; color: var(--white); }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-cta {
+    display: flex; gap: 20px; align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 32px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  }
+  .btn-primary:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(125,249,200,0.3);
+  }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--white); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; right: 48px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    position: relative; z-index: 2;
+    overflow: hidden;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(125,249,200,0.02);
+    margin-bottom: 120px;
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 24px;
+    padding: 0 32px;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 200;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .marquee-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative; z-index: 2;
+    padding: 0 48px;
+  }
+
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 64px;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: block; width: 24px; height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  /* ── PROJECTS GRID ── */
+  #work { margin-bottom: 140px; }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    gap: 16px;
+  }
+
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg2);
+    cursor: none;
+    group: true;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .project-card:hover { transform: translateY(-4px); }
+
+  /* Layout variants */
+  .project-card:nth-child(1) { grid-column: span 7; grid-row: span 2; }
+  .project-card:nth-child(2) { grid-column: span 5; }
+  .project-card:nth-child(3) { grid-column: span 5; }
+  .project-card:nth-child(4) { grid-column: span 5; grid-row: span 2; }
+  .project-card:nth-child(5) { grid-column: span 4; }
+  .project-card:nth-child(6) { grid-column: span 3; }
+
+  .card-media {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  .project-card:nth-child(1) .card-media { height: 500px; }
+  .project-card:nth-child(2) .card-media,
+  .project-card:nth-child(3) .card-media { height: 220px; }
+  .project-card:nth-child(4) .card-media { height: 400px; }
+  .project-card:nth-child(5) .card-media { height: 220px; }
+  .project-card:nth-child(6) .card-media { height: 220px; }
+
+  /* ── IMAGE & VIDEO card media ── */
+  .card-img,
+  .card-video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s;
+    filter: saturate(0.7) brightness(0.85);
+  }
+  .project-card:hover .card-img,
+  .project-card:hover .card-video {
+    transform: scale(1.05);
+    filter: saturate(1) brightness(1);
+  }
+
+  /* Placeholder when no image */
+  .card-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .placeholder-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .project-card:hover .placeholder-bg { transform: scale(1.05); }
+
+  .ph1 .placeholder-bg { background: linear-gradient(135deg, #0d1a2b 0%, #0a2040 40%, #061830 100%); }
+  .ph2 .placeholder-bg { background: linear-gradient(135deg, #1a0d2b 0%, #2a0d40 100%); }
+  .ph3 .placeholder-bg { background: linear-gradient(135deg, #2b0d1a 0%, #400d2a 100%); }
+  .ph4 .placeholder-bg { background: linear-gradient(135deg, #0d2b1a 0%, #0d4028 100%); }
+  .ph5 .placeholder-bg { background: linear-gradient(135deg, #1a2b0d 0%, #2a400d 100%); }
+  .ph6 .placeholder-bg { background: linear-gradient(135deg, #2b2b0d 0%, #40380d 100%); }
+
+  .placeholder-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+    transition: opacity 0.4s;
+  }
+  .project-card:hover .placeholder-grid-lines { opacity: 0.3; }
+
+  .placeholder-shape {
+    position: relative; z-index: 1;
+    opacity: 0.4;
+    transition: opacity 0.4s, transform 0.5s;
+  }
+  .project-card:hover .placeholder-shape { opacity: 0.7; transform: rotate(5deg) scale(1.05); }
+
+  .placeholder-label {
+    position: relative; z-index: 1;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  .upload-hint {
+    position: absolute; bottom: 12px; right: 12px;
+    z-index: 10;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.4);
+    padding: 4px 8px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(6,6,16,0.95) 0%, rgba(6,6,16,0.4) 50%, transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 28px;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 5;
+  }
+  .project-card:hover .card-overlay { opacity: 1; }
+
+  .card-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .card-title {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    transform: translateY(8px);
+    transition: transform 0.4s;
+  }
+  .project-card:hover .card-title { transform: translateY(0); }
+
+  .card-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    transform: translateY(8px);
+    transition: transform 0.4s 0.05s;
+  }
+  .project-card:hover .card-tags { transform: translateY(0); }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid rgba(125,249,200,0.2);
+    color: var(--accent);
+    background: rgba(125,249,200,0.05);
+  }
+
+  /* Static info bar (always visible) */
+  .card-info {
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .card-info-title {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .card-arrow {
+    width: 28px; height: 28px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+    color: var(--muted);
+  }
+  .project-card:hover .card-arrow {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(125,249,200,0.08);
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    margin-bottom: 140px;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-visual {
+    position: relative;
+    height: 520px;
+  }
+
+  .about-frame {
+    position: absolute; inset: 0;
+    border: 1px solid rgba(125,249,200,0.15);
+    overflow: hidden;
+  }
+
+  .about-canvas {
+    width: 100%; height: 100%;
+    display: block;
+  }
+
+  .about-frame-label {
+    position: absolute; top: -1px; left: 40px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--bg);
+    padding: 0 8px;
+    transform: translateY(-50%);
+  }
+
+  .about-accent-box {
+    position: absolute; bottom: -24px; right: -24px;
+    width: 140px; height: 140px;
+    border: 1px solid rgba(200,125,255,0.2);
+    background: rgba(200,125,255,0.03);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px;
+  }
+  .about-accent-box span:first-child {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 36px;
+    color: var(--accent2);
+  }
+  .about-accent-box span:last-child {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .about-text { padding-top: 12px; }
+
+  .about-bio {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(240,238,248,0.75);
+    margin-bottom: 40px;
+  }
+  .about-bio strong { color: var(--white); font-weight: 400; }
+
+  .about-skills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .skill-item {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .skill-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex; justify-content: space-between;
+  }
+  .skill-name span { color: var(--accent); }
+  .skill-bar {
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    position: relative; overflow: hidden;
+  }
+  .skill-fill {
+    position: absolute; top: 0; left: 0; bottom: 0;
+    background: linear-gradient(to right, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .skill-fill.animated { transform: scaleX(1); }
+
+  .contact-row {
+    display: flex; gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* ── PROCESS ── */
+  #process { margin-bottom: 140px; }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .process-step {
+    padding: 40px 32px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .process-step::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    transform-origin: left;
+  }
+  .process-step:hover::before { transform: scaleX(1); }
+  .process-step:hover { background: rgba(125,249,200,0.02); }
+
+  .step-num {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .step-icon {
+    font-size: 24px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .step-title {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+  .step-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    margin-bottom: 80px;
+  }
+
+  .contact-inner {
+    border: 1px solid rgba(125,249,200,0.1);
+    padding: 80px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(125,249,200,0.01);
+  }
+  .contact-inner::before {
+    content: '';
+    position: absolute;
+    top: -150px; right: -150px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(125,249,200,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-big {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 80px);
+    text-transform: uppercase;
+    line-height: 0.95;
+    margin-bottom: 40px;
+  }
+  .contact-big .accent { color: var(--accent); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+  }
+
+  .contact-info p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(240,238,248,0.6);
+    max-width: 500px;
+    margin-bottom: 32px;
+  }
+
+  .contact-email {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 4px;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .contact-email:hover { color: var(--accent); border-color: var(--accent); }
+
+  .contact-socials {
+    display: flex; flex-direction: column; gap: 12px;
+    text-align: right;
+  }
+  .social-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .social-link:hover { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 2;
+    padding: 32px 48px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .footer-built {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .footer-built span { color: var(--accent); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(6,6,16,0.97);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s;
+    backdrop-filter: blur(16px);
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .modal-content {
+    width: 90vw; max-width: 1100px;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(125,249,200,0.1);
+    transform: translateY(20px);
+    transition: transform 0.4s;
+  }
+  .modal-overlay.open .modal-content { transform: translateY(0); }
+
+  .modal-media {
+    position: relative;
+    min-height: 400px;
+    overflow: hidden;
+  }
+
+  .modal-placeholder {
+    width: 100%; height: 100%;
+    min-height: 400px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Vidéo dans la modale */
+  .modal-video {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .modal-info {
+    padding: 60px;
+    background: var(--bg2);
+    display: flex; flex-direction: column; gap: 24px;
+  }
+
+  .modal-close {
+    position: absolute; top: 24px; right: 24px;
+    z-index: 10;
+    width: 40px; height: 40px;
+    background: rgba(6,6,16,0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    font-size: 18px;
+    cursor: none;
+    transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+  .modal-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+  .modal-title {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .modal-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(240,238,248,0.65);
+  }
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .modal-meta {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 24px; margin-top: auto;
+  }
+  .meta-item label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 4px;
+  }
+  .meta-item span {
+    font-size: 14px; color: var(--white);
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(125,249,200,0.2); border-radius: 2px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.8s cubic-bezier(0.23,1,0.32,1), transform 0.8s cubic-bezier(0.23,1,0.32,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #hero { padding: 0 24px; }
+    section { padding: 0 24px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card:nth-child(n) { grid-column: span 1; grid-row: span 1; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-visual { height: 300px; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .contact-inner { padding: 40px 24px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-socials { text-align: left; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+    .modal-content { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- Background Canvas -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- Navigation -->
+<nav>
+  <a href="#hero" class="nav-logo">Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#work">Projets</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Étudiante en M1 Arts numériques &amp; Cultures visuelles</div>
+    <h1 class="hero-name">
+      <span class="line1">Vineesha</span>
+      <span class="line2">Sabnani</span>
+      <span class="line1"></span>
+    </h1>
+    <p class="hero-desc">
+      Création d'espaces numériques 3D, d'environnements virtuels et projet en réalité virtuelle avec une pratique à la croisée du design numérique et du dessin.
+    </p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 3l5 4-5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Voir les projets
+      </a>
+      <a href="#about" class="btn-ghost">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor"/><path d="M6 5.5V8.5M6 3.5V4.5" stroke="currentColor" stroke-linecap="round"/></svg>
+        À propos
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span>Modélisation 3D</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Environnements Virtuels</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Réalité Virtuelle</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Design Graphique</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Signalétique</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Dessin</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Expériences Immersives</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Scénographie</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Modélisation 3D</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Environnements Virtuels</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Réalité Virtuelle</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Design Graphique</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Signalétique</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Dessin</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Expériences Immersives</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Scénographie</span>
+  </div>
+</div>
+
+<!-- Work -->
+<section id="work">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">Travaux</div>
+      <h2 class="section-title">Projets</h2>
+    </div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- ======================================
+     PROJET 1 — IMAGE
+     ✏️ Placez "ghiblipic.png" dans le même
+        dossier que votre fichier HTML
+======================================= -->
+<div class="project-card reveal" onclick="openModal(0)">
+  <div class="card-media">
+
+    <video
+      class="card-video"
+      src="videos/ghibli-2-2.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
+
+    <div class="card-overlay">
+      <div class="card-num">01</div>
+      <div class="card-title">The Changing Valley</div>
+      <div class="card-tags">
+        <span class="tag">3D</span>
+        <span class="tag">Environnement Virtuel</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card-info">
+    <span class="card-info-title">Projet 01</span>
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M3 7h8M8 4l3 3-3 3"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+    <!-- ======================================
+         PROJET 2 — VIDÉO
+         ✏️ Remplacez "votre-video-2.mp4"
+    ======================================= -->
+    <div class="project-card reveal" onclick="openModal(1)">
+      <div class="card-media">
+        <video
+          class="card-video"
+          src="videos/VR.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+        ></video>
+        <div class="card-overlay">
+          <div class="card-num">02</div>
+          <div class="card-title">Note Path</div>
+          <div class="card-tags">
+            <span class="tag">VR</span>
+            <span class="tag">Interactif</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-info">
+        <span class="card-info-title">Projet 02</span>
+        <div class="card-arrow">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================
+         PROJET 3 — IMAGE (placeholder)
+         ✏️ Remplacez la div card-placeholder
+            par une balise <img class="card-img" src="votre-image.jpg" ...>
+    ======================================= -->
+    <div class="project-card reveal" onclick="openModal(2)">
+  <div class="card-media">
+
+    <video
+      class="card-video"
+      src="videos/nav.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
+
+    <div class="card-overlay">
+      <div class="card-num">03</div>
+      <div class="card-title">Modélisation 3D</div>
+      <div class="card-tags">
+        <span class="tag">3D</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card-info">
+    <span class="card-info-title">Projet 03</span>
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M3 7h8M8 4l3 3-3 3"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</div>
+    </div>
+
+    <!-- ======================================
+         PROJET 4 — IMAGE (placeholder)
+    ======================================= -->
+   <div class="project-card reveal" onclick="openModal(3)">
+  <div class="card-media">
+
+    <img
+      class="card-img"
+      src="images/crgy.jpg"
+      alt="Scénographie - Mairie de Cergy"
+    />
+
+    <div class="card-overlay">
+      <div class="card-num">04</div>
+      <div class="card-title">Scénographie - Mairie de Cergy</div>
+      <div class="card-tags">
+        <span class="tag">Design Graphique</span>
+        <span class="tag">Signalétique</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card-info">
+    <span class="card-info-title">Projet 04</span>
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M3 7h8M8 4l3 3-3 3"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+    <!-- ======================================
+     PROJET 5 — IMAGE
+======================================= -->
+<div class="project-card reveal" onclick="openModal(4)">
+
+  <div class="card-media">
+
+    <div class="card-placeholder ph5">
+
+      <!-- Background -->
+      <div class="placeholder-bg"></div>
+      <div class="placeholder-grid-lines"></div>
+
+      <!-- VIDEO -->
+      <video
+        class="card-video"
+        src="videos/AB.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+
+      <!-- Texte -->
+      <span class="placeholder-label">→ Voir le projet</span>
+
+    </div>
+
+    <!-- Overlay -->
+    <div class="card-overlay">
+
+      <div class="card-num">05</div>
+
+      <div class="card-title">
+        Éclats invisibles
+      </div>
+
+      <div class="card-tags">
+        <span class="tag">Art génératif</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Bas de carte -->
+  <div class="card-info">
+
+    <span class="card-info-title">
+      Projet 05
+    </span>
+
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path 
+          d="M3 7h8M8 4l3 3-3 3" 
+          stroke="currentColor" 
+          stroke-width="1.2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+  </div>
+
+</div>
+
+    <!-- =============================     
+     PROJET 6 — IMAGE
+======================================= -->
+
+<div class="project-card reveal" onclick="openModal(5)" style="height:420px;">
+
+  <div class="card-media" style="position:relative; width:100%; height:calc(100% - 70px); overflow:hidden;">
+
+    <img
+      src="images/p.jpg"
+      alt="Cartographie intérieure"
+      style="
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+      "
+    />
+
+    <div class="card-overlay">
+
+      <div class="card-num">06</div>
+
+      <div class="card-title">
+        Cartographie intérieure
+      </div>
+
+      <div class="card-tags">
+        <span class="tag">Dessin</span>
+        <span class="tag">Pastel</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card-info">
+
+    <span class="card-info-title">
+      Projet 06
+    </span>
+
+    <div class="card-arrow">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path 
+          d="M3 7h8M8 4l3 3-3 3"
+          stroke="currentColor"
+          stroke-width="1.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">Profil</div>
+      <h2 class="section-title">À Propos</h2>
+    </div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-frame">
+        <span class="about-frame-label">signal.live</span>
+        <canvas class="about-canvas" id="about-canvas"></canvas>
+      </div>
+      <div class="about-accent-box">
+        <span>M2</span>
+        <span>Design, Arts & Médias</span>
+      </div>
+    </div>
+
+    <div class="about-text reveal">
+      <p class="about-bio">
+Actuellement en Master 1 Arts Numériques & Cultures Visuelles, je candidate au Master 2 Design, Arts, Médias – Mention Design pour approfondir ma pratique à l'intersection de l'art, de la technologie et des médias, en renforçant ma démarche critique et ma réflexion théorique.     </p>
+      
+
+      <div class="about-skills" id="skills-container">
+        <div class="skill-item">
+          <div class="skill-name">Modélisation 3D <span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">Réalité Virtuelle <span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">Design Interactif <span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">Scénographie <span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">Design Graphique<span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">Dessin<span></span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <a href="#contact" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 3l5 4-5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Me contacter
+        </a>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="contact-big">
+      Contact<br><span class="accent"></span>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>Vous souhaitez en savoir plus sur mes projets, discuter d'une collaboration ou simplement échanger autour du design numérique et de la création artistique.</p>
+        <a href="mailto:votre@email.fr" class="contact-email">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1" stroke="currentColor"/><path d="M1 4l7 5 7-5" stroke="currentColor"/></svg>
+          sabnanivineesha@gmail.com
+        </a>
+      </div>
+   
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span class="footer-copy">Portfolio de Vineesha SABNANI</span>
+  <span class="footer-built">Portfolio 2026</span>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleModalClick(event)">
+  <div class="modal-content" id="modal-content">
+    <div class="modal-media" id="modal-media">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-info">
+      <div class="modal-num" id="modal-num"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-tags" id="modal-tags"></div>
+      <div class="modal-meta">
+        <div class="meta-item"><label>Année</label><span id="modal-year"></span></div>
+        <div class="meta-item"><label>Type</label><span id="modal-type"></span></div>
+        <div class="meta-item"><label>Outils</label><span id="modal-tools"></span></div>
+        <div class="meta-item"><label>Contexte</label><span id="modal-context"></span></div>
+      </div>
+    </div>
+  </div>
+<div>
+
+//<script>
+// ── PROJECT DATA ──
+// ✏️ Remplissez videoSrc pour les projets 1, 2 et 6 avec le chemin de votre vidéo
+const projects = [
+  {
+    num: '01',
+    title: 'The Changing Valley',
+    desc: 'The Changing Valley s’inspire du film Mon voisin Totoro et plus largement de l’esthétique des paysages du studio Ghibli, caractérisés par une attention portée à la nature et au rythme contemplatif. Le projet prend la forme de paysages explorables, conçus comme une réinterprétation personnelle de ces références, nourrie par ma pratique du dessin de paysage et par des influences issues du jeu vidéo et de la photographie tel que Akine Coco. Entre dessin, modélisation 3D et interaction, ce projet met en avant une expérience contemplative et immersive, centrée sur l’exploration et la perception de l’espace.',
+    tags: ['3D', 'Environnement Virtuel', 'Blender'],
+    year: '2026',
+    type: 'Environnement 3D',
+    tools: 'Blender, Unity',
+    context: 'Projet de création  en lien avec le mémoire',
+    bg: 'linear-gradient(135deg, #0d1a2b 0%, #0a2040 40%, #061830 100%)',
+    videoSrc: 'videos/ghibz.mp4'   // ✏️ chemin de votre vidéo
+  },
+  {
+    num: '02',
+    title: 'Note Path',
+    desc: '“Note Path” est une expérience immersive inspirée de la mémoire, des souvenirs et de la pratique du piano. À travers trois environnements situés dans une galaxie, le joueur explore un univers onirique où le piano devient un objet symbolique représentant les milliers d’heures d’apprentissage et de répétition. Chaque pièce possède une ambiance visuelle et sonore différente, mêlant exploration, obstacles et interaction avec les éléments du piano. Le projet évoque ainsi l’immersion mentale ressentie lorsqu’on joue de la musique, entre effort, progression et évasion hors de la réalité.',
+    tags: ['VR', 'Interactif', 'Expérience'],
+    year: '2026',
+    type: 'Réalité Virtuelle',
+    tools: 'Unity, Blender',
+    context: 'Projet académique',
+    bg: 'linear-gradient(135deg, #1a0d2b 0%, #2a0d40 100%)',
+    videoSrc: 'videos/VR.mp4'   // ✏️ chemin de votre vidéo
+  },
+  {
+    num: '03',
+    title: 'Modélisation 3D - Projet en cours',
+    desc: 'Ce projet s’inscrit dans la création d’un court métrage d’animation inspiré de l’univers du film Avatar. L’histoire suit le personnage Na’vi explorant une forêt bioluminescente de Pandora après la disparition d’une mystérieuse source de lumière, dans un environnement où la nature réagit à sa présence. Le visuel présenté ici est un prototype du personnage, réalisé afin de développer son apparence et son intégration dans les futures scènes animées du projet.',
+    tags: ['3D', 'Avatar', 'Prototype'],
+    year: '2026',
+    type: 'Modélisation',
+    tools: 'Blender, Substance',
+    context: 'Expérimentation',
+    bg: 'linear-gradient(135deg, #2b0d1a 0%, #400d2a 100%)',
+    videoSrc: 'videos/Navi.mp4'   // ✏️ chemin de votre vidéo
+  },
+  {
+     num: '04',
+  title: 'Stage - Projet en cours',
+  desc: 'Dans le cadre de ce stage de 4 mois, je suis en charge de la signalétique des évènements réunissant l’ensemble des associations culturelles de Cergy. Je développe également un parcours de signalétique et adapte la scénographie en fonction des artistes en résidence. Cela inclut des collaborations, notamment avec la designer Julie Cheng, afin de créer des dispositifs en lien avec leurs univers.',
+  tags: ['Scénographie', 'Signalétique', 'Design Graphique'],
+  year: '2026',
+  type: 'Signalétique, Scénographie',
+  tools: 'Suite Adobe, Blender, Figma',
+  context: 'Projet de stage',
+  bg: 'linear-gradient(135deg, #0d2b1a 0%, #0d4028 100%)',
+  videoSrc: 'videos/cergyc.mp4'   // ✏️ chemin de votre vidéo
+  },
+  {
+    num: '05',
+    title: 'Éclats invisibles',
+    desc: 'Ce projet explore ma fascination pour les aurores boréales, un phénomène que je n’ai jamais vu mais qui nourrit profondément mon imaginaire. À travers des recherches scientifiques, théoriques et des interviews réalisés avec deux personnes autochtones, j’ai découvert des visions plus spirituelles des aurores, perçues comme un lien avec les ancêtres. À partir de ces recherches, j’ai développé un dispositif génératif à partir d’aurores boréales. Les couleurs, les formes et l’accumulation des dessins évoquent les souvenirs, les récits et les différentes perceptions liées aux aurores. Ce projet cherche ainsi à rendre visible un phénomène à la fois lointain, invisible et inaccessible, en lui donnant la forme d’un paysage imaginaire.',
+    tags: ['Art génératif', 'Peuple Autochtone'],
+    year: '2024',
+    type: 'Art génératif',
+    tools: 'P5JS, HTML, CSS, JavaScript',
+    context: 'Projet académique',
+    bg: 'linear-gradient(135deg, #1a2b0d 0%, #2a400d 100%)',
+    videoSrc: 'videos/AB.mp4'   // ✏️ chemin de votre vidéo
+  },
+  {
+    num: '06',
+      title: 'Cartographie intérieur',
+    desc: ' Ce projet explore les souvenirs de mon enfance marquée par des déplacements liés au travail de mon père dans l’armée. À travers de grands dessins au pastel sec, je réinterprète des paysages (Himalaya, Kazakhstan, Péru) sans support visuel, guidé par l’imaginaire de l’enfance. Ces compositions évoquent mémoire, absence et entre-deux dans une approche personelle et intime.',
+    tags: ['Dessin', 'Pastel'],
+    year: '2025',
+    type: 'Série de dessins',
+    tools: 'Pastel (format A2)',
+    context: 'Projet personnelle',
+    bg: 'linear-gradient(135deg, #2b2b0d 0%, #40380d 100%)',
+  videoSrc: 'videos/passs.mp4'   //
+  }
+];
+
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+});
+
+function animateRing() {
+  rx += (mx - rx - 18) * 0.12;
+  ry += (my - ry - 18) * 0.12;
+  ring.style.transform = `translate(${rx}px, ${ry}px)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// ── BG CANVAS ──
+const bgCanvas = document.getElementById('bg-canvas');
+const bgCtx = bgCanvas.getContext('2d');
+let particles = [];
+let W, H;
+
+function resizeBg() {
+  W = bgCanvas.width = window.innerWidth;
+  H = bgCanvas.height = window.innerHeight;
+}
+resizeBg();
+window.addEventListener('resize', resizeBg);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.r = Math.random() * 1.2 + 0.2;
+    this.a = Math.random() * 0.5 + 0.1;
+    this.c = Math.random() > 0.5 ? '125,249,200' : '200,125,255';
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    bgCtx.beginPath();
+    bgCtx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    bgCtx.fillStyle = `rgba(${this.c},${this.a})`;
+    bgCtx.fill();
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function animateBg() {
+  bgCtx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 100) {
+        bgCtx.beginPath();
+        bgCtx.moveTo(particles[i].x, particles[i].y);
+        bgCtx.lineTo(particles[j].x, particles[j].y);
+        bgCtx.strokeStyle = `rgba(125,249,200,${(1 - d/100) * 0.07})`;
+        bgCtx.lineWidth = 0.5;
+        bgCtx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animateBg);
+}
+animateBg();
+
+// ── ABOUT CANVAS ──
+const aboutCanvas = document.getElementById('about-canvas');
+const actx = aboutCanvas.getContext('2d');
+let aW, aH;
+
+function resizeAbout() {
+  aW = aboutCanvas.width = aboutCanvas.offsetWidth;
+  aH = aboutCanvas.height = aboutCanvas.offsetHeight;
+}
+setTimeout(resizeAbout, 100);
+window.addEventListener('resize', resizeAbout);
+
+let t = 0;
+function drawAbout() {
+  if (!aW || !aH) { requestAnimationFrame(drawAbout); return; }
+  actx.clearRect(0, 0, aW, aH);
+  t += 0.008;
+
+  const cx = aW / 2, cy = aH / 2;
+  const size = Math.min(aW, aH) * 0.28;
+
+  function rotate(x, y, z, rx, ry) {
+    let nx = x * Math.cos(ry) - z * Math.sin(ry);
+    let nz = x * Math.sin(ry) + z * Math.cos(ry);
+    let ny = y * Math.cos(rx) - nz * Math.sin(rx);
+    nz = y * Math.sin(rx) + nz * Math.cos(rx);
+    return [nx, ny, nz + 4];
+  }
+
+  function project(x, y, z) {
+    const fov = 3;
+    return [cx + (x / z) * fov * size, cy + (y / z) * fov * size];
+  }
+
+  const verts = [
+    [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+    [-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]
+  ];
+
+  const edges = [
+    [0,1],[1,2],[2,3],[3,0],
+    [4,5],[5,6],[6,7],[7,4],
+    [0,4],[1,5],[2,6],[3,7]
+  ];
+
+  const rotVerts = verts.map(([x,y,z]) => rotate(x,y,z, t*0.7, t));
+  const projVerts = rotVerts.map(([x,y,z]) => project(x,y,z));
+
+  actx.strokeStyle = 'rgba(125,249,200,0.04)';
+  actx.lineWidth = 0.5;
+  for (let i = 0; i <= 10; i++) {
+    const x = (i / 10) * aW;
+    actx.beginPath(); actx.moveTo(x, 0); actx.lineTo(x, aH); actx.stroke();
+    actx.beginPath(); actx.moveTo(0, (i/10)*aH); actx.lineTo(aW, (i/10)*aH); actx.stroke();
+  }
+
+  actx.strokeStyle = 'rgba(125,249,200,0.45)';
+  actx.lineWidth = 1;
+  edges.forEach(([a,b]) => {
+    actx.beginPath();
+    actx.moveTo(projVerts[a][0], projVerts[a][1]);
+    actx.lineTo(projVerts[b][0], projVerts[b][1]);
+    actx.stroke();
+  });
+
+  const rotVerts2 = verts.map(([x,y,z]) => rotate(x*0.5,y*0.5,z*0.5, t*0.7+0.5, t+0.5));
+  const projVerts2 = rotVerts2.map(([x,y,z]) => project(x,y,z));
+  actx.strokeStyle = 'rgba(200,125,255,0.25)';
+  actx.lineWidth = 0.7;
+  edges.forEach(([a,b]) => {
+    actx.beginPath();
+    actx.moveTo(projVerts2[a][0], projVerts2[a][1]);
+    actx.lineTo(projVerts2[b][0], projVerts2[b][1]);
+    actx.stroke();
+  });
+
+  actx.strokeStyle = 'rgba(255,125,158,0.08)';
+  actx.lineWidth = 0.5;
+  for (let i = 0; i < 8; i++) {
+    actx.beginPath();
+    actx.moveTo(projVerts[i][0], projVerts[i][1]);
+    actx.lineTo(projVerts2[i][0], projVerts2[i][1]);
+    actx.stroke();
+  }
+
+  const scanY = ((Math.sin(t * 1.5) + 1) / 2) * aH;
+  const scanGrad = actx.createLinearGradient(0, scanY - 30, 0, scanY + 30);
+  scanGrad.addColorStop(0, 'transparent');
+  scanGrad.addColorStop(0.5, 'rgba(125,249,200,0.06)');
+  scanGrad.addColorStop(1, 'transparent');
+  actx.fillStyle = scanGrad;
+  actx.fillRect(0, scanY - 30, aW, 60);
+
+  requestAnimationFrame(drawAbout);
+}
+drawAbout();
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.skill-fill').forEach((fill, i) => {
+        setTimeout(() => fill.classList.add('animated'), i * 120);
+      });
+      skillObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const sc = document.getElementById('skills-container');
+if (sc) skillObserver.observe(sc);
+
+// ── MODAL ──
+// Récupère la vidéo en cours dans la carte pour l'afficher en modale
+function openModal(idx) {
+  const p = projects[idx];
+  document.getElementById('modal-num').textContent   = `Projet ${p.num}`;
+  document.getElementById('modal-title').textContent = p.title;
+  document.getElementById('modal-desc').textContent  = p.desc;
+  document.getElementById('modal-year').textContent  = p.year;
+  document.getElementById('modal-type').textContent  = p.type;
+  document.getElementById('modal-tools').textContent = p.tools;
+  document.getElementById('modal-context').textContent = p.context;
+
+  const tagsEl = document.getElementById('modal-tags');
+  tagsEl.innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+  const media = document.getElementById('modal-media');
+  // Réinitialise le contenu (on garde seulement le bouton fermer)
+  media.innerHTML = `<button class="modal-close" onclick="closeModal()">✕</button>`;
+
+  if (p.videoSrc) {
+    // Projet avec vidéo → on relit la vidéo dans la modale
+    const vid = document.createElement('video');
+    vid.className  = 'modal-video';
+    vid.src        = p.videoSrc;
+    vid.autoplay   = true;
+    vid.muted      = true;
+    vid.loop       = true;
+    vid.playsInline = true;
+    media.appendChild(vid);
+  } else {
+    // Projet sans vidéo → fond de couleur simple
+    media.style.background = p.bg;
+  }
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+
+  // Stoppe la vidéo modale si elle existe
+  const vid = overlay.querySelector('video');
+  if (vid) { vid.pause(); vid.src = ''; }
+}
+
+function handleModalClick(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
